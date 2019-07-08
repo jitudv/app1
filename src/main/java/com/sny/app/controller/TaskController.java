@@ -25,7 +25,7 @@ import com.sny.app.taskServices.TaskService;
 import com.sny.app.user.Employee;
 
 
-@CrossOrigin(origins = "http://localhost:4001")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4100"})
 @RestController
 //@RequestMapping("task/")
 public class TaskController {
@@ -41,7 +41,7 @@ public class TaskController {
 	EmployeeService es ;
 	
 	
-	@GetMapping("/task/{userid)")
+	@GetMapping("/user/task/{userid)")
 	public ResponseEntity<List<Task>> getTaksByUserId(@PathVariable("userid") int id)
 	{ 
 		// get task of perticular  employee  some times it may be  more then one  
@@ -56,7 +56,7 @@ public class TaskController {
 		// it will return the  task  based on   id  given by  end user 
 	}
 	
-	@GetMapping("/task/")
+	@GetMapping("/user/task/")
 	public ResponseEntity<List<Task>> getAllTasks()
 	{ 
 		//  it will return  all the task   and url should be   http://localhost:8001/task/tasks
@@ -64,29 +64,29 @@ public class TaskController {
 	}
 	
 	
-	@PostMapping("/task")
-	public ResponseEntity<String> addTask(@RequestBody Task task ,@RequestParam("ids") int []ids )
-	{ 
-		// url must be  http://localhost:8001/task?ids=2,3,5
-		 // it will save the task and  return  a simple msg
-		 log.info(task.getAtComplete().toString());
-	    Date assignDate  = new Date(System.currentTimeMillis()); 
-		//Date compDate =  new Date()
-		List<Employee> list = new ArrayList<Employee>();
-        //log.info("this is array length"+ar.length);
-    
-		for(int i=(ids.length-1);i> -1;i--)
-		{
-		  //log.info("ar"+ar[i]);
-		  list.add(es.getEmployee(ids[i])); 
-		}
-		task.setEmps(list);
-		task.setAsignDate(assignDate);
-	    ts.addTask(task);
-		return  ResponseEntity.ok("your Task is added ");
-	}
+//	@PostMapping("/admin/task")
+//	public ResponseEntity<String> addTask(@RequestBody Task task ,@RequestParam("ids") int []ids )
+//	{ 
+//		// url must be  http://localhost:8001/task?ids=2,3,5
+//		 // it will save the task and  return  a simple msg
+//		 log.info(task.getAtComplete().toString());
+//	    Date assignDate  = new Date(System.currentTimeMillis()); 
+//		//Date compDate =  new Date()
+//		List<Employee> list = new ArrayList<Employee>();
+//        //log.info("this is array length"+ar.length);
+//    
+//		for(int i=(ids.length-1);i> -1;i--)
+//		{
+//		  //log.info("ar"+ar[i]);
+//		  list.add(es.getEmployee(ids[i])); 
+//		}
+//		task.setEmps(list);
+//		task.setAsignDate(assignDate);
+//	    ts.addTask(task);
+//		return  ResponseEntity.ok("your Task is added ");
+//	}
 	
-	@PutMapping("/task/{id}")
+	@PutMapping("/admin/task/{id}")
 	public ResponseEntity<String> updateTask(@RequestBody Task task, @PathVariable("id") int id )
 	{ 
 		Task t = ts.getTaskById(id);
@@ -98,14 +98,14 @@ public class TaskController {
         return  ResponseEntity.ok("your task update "+t.getId());
 	}
 	
-	@DeleteMapping("/task/{id}")
+	@DeleteMapping("/admin/task/{id}")
 	public ResponseEntity<String> removeTask(@PathVariable("id") int id )
 	{
 	   ts.removeTask(id);
 	   return ResponseEntity.ok("your entity deleted ");
 	}
 	
-	@GetMapping("/task/users")
+	@GetMapping("/user/task/users")
 	public ResponseEntity<List<Employee>> taskAssignedUsers(@RequestParam("id") int ar[])
 	{ 
 		List<Employee> list = new ArrayList<Employee>();

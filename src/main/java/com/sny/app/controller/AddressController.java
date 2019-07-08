@@ -15,26 +15,26 @@ import com.sny.app.adderssService.*;
 import com.sny.app.user.Address;
 
 
-@CrossOrigin(origins = "http://localhost:4001")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4100"})
 @RestController
 public class AddressController 
 {  
 	 @Autowired
 	 AddressService adr;
 	
-    @GetMapping(value="/address/{1}")
+    @GetMapping(value="/user/address/{1}")
 	public ResponseEntity<Address> getAddress(@PathVariable("id")int id)
 	{
 		return ResponseEntity.ok(adr.getAddress(id));
 	}
     
-    @PostMapping(value="/address")
+    @PostMapping(value="/user/address")
     public ResponseEntity<String> saveAddress(@RequestBody Address address)
     {   adr.addAddress(address);
     	return ResponseEntity.ok("your address save ");
     }
     
-    @PutMapping(value="/address/{id}")
+    @PutMapping(value="/user/address/{id}")
     public ResponseEntity<String> updateAddress(@RequestBody Address address , @PathVariable("id") int id)
     {
     	Address ad = adr.getAddress(id);
@@ -46,7 +46,7 @@ public class AddressController
     	return ResponseEntity.ok("address saved "+ad.getId());
     }
     
-    @DeleteMapping(value="/address/{id}")
+    @DeleteMapping(value="/user/address/{id}")
     public ResponseEntity<String> deleteAddress(@PathVariable("id") int id)
     {
     	adr.deleteAddress(id);

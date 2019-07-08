@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sny.app.departmentService.DepartmentService;
 import com.sny.app.user.Department;
 
-@CrossOrigin(origins = "http://localhost:4001")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4100"})
 @RestController
 public class DepartmentController {
   
@@ -31,7 +31,7 @@ public class DepartmentController {
 	}
 	
 	
-	@PostMapping(value="/department")
+	@PostMapping(value="/admin/department")
 	public ResponseEntity<String> addDepartment(@RequestBody Department dept)
 	{   // add department  in database  
 		dse.addDepartment(dept);
@@ -39,7 +39,7 @@ public class DepartmentController {
 		return ResponseEntity.ok(" emplolyee save ");
 	}
 	
-	@PutMapping(value="/department/{id}")
+	@PutMapping(value="/admin/department/{id}")
 	public ResponseEntity<String> updateDepartment(@RequestBody Department dept, @PathVariable("id") int id	)
 	{   // update department   
 		Department d = dse.getDepartmentByid(id);
@@ -49,7 +49,7 @@ public class DepartmentController {
 	}
 	
 	
-	@DeleteMapping(value="/department/{id}")
+	@DeleteMapping(value="/admin/department/{id}")
 	public ResponseEntity<String> deleteDepartment(@PathVariable("id") int id) {
 		 // will delete the department  based on the  id   
 		 dse.deleteDepartment(id);

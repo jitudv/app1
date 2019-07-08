@@ -1,23 +1,82 @@
 package com.sny.app.controller;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-//@CrossOrigin(origins = "http://localhost:4200")
-@Controller
-@RequestMapping("/")
+ 
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4100"})
+@RestController
+//@RequestMapping("/")
 public class TestController
 {
-          
-	@GetMapping("/test")
-	public String viewName() {
-		return "index";
+    Log log = LogFactory.getLog(TestController.class);
+    
+    
+    @GetMapping(value = "/test" ,produces = MediaType.APPLICATION_JSON_VALUE )
+	public ResponseEntity<String> freeForAccess()
+    {
+		return  ResponseEntity.ok("{ \n "+"\"name\":\""+"jitudv09"+"\",\n"+"\"role\":\""+"password123"+"\" \n }");
 	}
-   
+    
+	
+	@GetMapping("/admin/test")
+	public String viewName() {
+		return "admin can access ";
+	}
+	
+    
+	@GetMapping("/user/test")
+	public String userTest() {
+		return "user are can access";
+	}
+	
+	@GetMapping("/logout/both")
+	public ResponseEntity<String> logoutDo(HttpServletRequest request,HttpServletResponse response){
+	HttpSession session= request.getSession(false);
+	log.warn(" this is the session attribute names \t  "+session.getAttributeNames());
+	    SecurityContextHolder.clearContext();
+	         session= request.getSession(false);
+	        if(session != null) {
+	        	log.warn("yes sessioni not null ");
+	            session.invalidate();
+	            log.warn("session is destroyred ");
+	        }
+	        for(Cookie cookie : request.getCookies()) {
+	            cookie.setMaxAge(0);
+	        }
+        
+	    return ResponseEntity.ok("logout");
+	}
+	
+	
+//
+//   @GetMapping("/logout")
+//   public ResponseEntity<String> logout(ServletRequest req ,ServletResponse res )
+//   {
+//	    String uname = SecurityContextHolder.getContext().getAuthentication().getName();
+//		return null;
+//   }
+	
+//   
+//	@GetMapping("/login")
+//	public String loginView()
+//	{
+//		return "login";
+//	}
    
 }

@@ -14,7 +14,7 @@ public class Address  implements Comparable<Address>
 {  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name="address_id")
     int id ;  //  auto generated so dont need to sent by client 
 
     @Column

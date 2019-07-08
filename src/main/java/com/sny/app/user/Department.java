@@ -8,11 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Department_table")
+@Table(name="department_master")
 public class Department implements Comparable<Department>   {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(name="department_id")
 	int id;  // auto generated  
 	
 	@Column

@@ -10,5 +10,6 @@ import com.sny.app.user.Employee;
  public void deleteEmployee(int id );
  public Employee getEmployee(int id );
  public List<Employee> getEmployees();
+ public Employee getEmployeeByemail(String email);
  
 }

@@ -11,32 +11,36 @@ public class Task implements Comparable<Task>
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column
+  @Column(name="task_id")
   int id ;
   
   @Column
   String remark;
   
   @Column
-  Date asignDate ;
+  String asignDate ;
   
   @Column
-  Date atComplete;
+  String atComplete;
    
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "employee_task",
+    joinColumns = { @JoinColumn(name = "task_id") },
+ 	inverseJoinColumns = { @JoinColumn(name = "employee_id") })
   List<Employee> emps ;
    
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(targetEntity = Comment.class,cascade = CascadeType.ALL)
   List<Comment> comments ;
   
-  public Task(String remark, Date atComplete) {
+  public Task(String remark, String atComplete) {
 	super();
 	this.remark = remark;
 	this.atComplete = atComplete;
    }
 
   
-public Task(String remark, Date asignDate, Date atComplete) {
+public Task(String remark, String asignDate,  String atComplete) {
+
 	super();
 	this.remark = remark;
 	this.asignDate = asignDate;
@@ -48,7 +52,8 @@ public Task()
 	super();
 }
 
-public Task(int id, String remark, Date asignDate, Date atComplete, List<Employee> emps, List<Comment> comments)
+public Task(int id, String remark, String asignDate,  String atComplete, List<Employee> emps, List<Comment> comments)
+
 {
 	super();
 	this.id = id;
@@ -126,19 +131,19 @@ public boolean equals(Object obj) {
 	return true;
 }
 
-public Date getAsignDate() {
+public String getAsignDate() {
 	return asignDate;
 }
 
-public void setAsignDate(Date asignDate) {
+public void setAsignDate(String asignDate) {
 	this.asignDate = asignDate;
 }
 
-public Date getAtComplete() {
+public String getAtComplete() {
 	return atComplete;
 }
 
-public void setAtComplete(Date atComplete) {
+public void setAtComplete(String atComplete) {
 	this.atComplete = atComplete;
 }
 

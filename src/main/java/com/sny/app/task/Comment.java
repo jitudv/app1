@@ -10,26 +10,29 @@ public class Comment  implements Comparable<Comment>
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="comment_id")
     int id ;
     
     @Column
     String commetn;
     
-    Date dateTimeComment;
+    @Column
+    String dateTimeComment;
     
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "task_id")
     Task task ;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     Employee emp;
 
-	public Comment(String commetn, Date dateTimeComment) {
+	public Comment(String commetn, String dateTimeComment) {
 		super();
 		this.commetn = commetn;
 		this.dateTimeComment = dateTimeComment;
 	}
 
-	public Comment(int id, String commetn, Date dateTimeComment, Task task, Employee emp) {
+	public Comment(int id, String commetn, String dateTimeComment, Task task, Employee emp) {
 		super();
 		this.id = id;
 		this.commetn = commetn;
@@ -58,11 +61,11 @@ public class Comment  implements Comparable<Comment>
 		this.commetn = commetn;
 	}
 
-	public Date getDateTimeComment() {
+	public String getDateTimeComment() {
 		return dateTimeComment;
 	}
 
-	public void setDateTimeComment(Date dateTimeComment) {
+	public void setDateTimeComment(String dateTimeComment) {
 		this.dateTimeComment = dateTimeComment;
 	}
 
