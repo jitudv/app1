@@ -1,0 +1,11 @@
+mys sql user  :- user1      and password is       user@321  
+ datbase is  "Taskshedule "
+ 
+ 
+ mvn install:install-file -Dfile={/home/pc-1/Downloads/ojdbc7-12.1.0.2.jar} 
+      -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar
+      
+      
+      important links 
+      
+      https://www.javaguides.net/2019/02/spring-boot-2-angular-7-crud-example-tutorial.html
