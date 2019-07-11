@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sny.app.employeeService.EmployeeService;
+import com.sny.app.task.Task;
+import com.sny.app.taskServices.TaskService;
 import com.sny.app.user.Employee;
 
 @RunWith(SpringRunner.class)
@@ -16,6 +18,8 @@ public class AppApplicationTests {
 	@Autowired
 	EmployeeService emps;
 	
+	@Autowired 
+	TaskService ts ;
 //	
 //	@Test
 //	public void contextLoads() 
@@ -35,24 +39,30 @@ public class AppApplicationTests {
 //	}
 	
 	
-	@Test
-	public void test2()
-	{
-      Employee ee  = emps.getEmployeeByemail("jitudv09@gmail.com");
-      //System.out.println("did not working "+ee.getEmail()); 
-       System.out.println("role is "+ee.getRoles().get(0).getRole());
-      // System.out.println("this is the password "+ee.getPassword());
-      if(ee == null)
-      {
-      System.out.println("yes working ");	  
-      }
-      else
-      {
-       System.out.println("did not working "+ee.getEmail()+"\t\t this is the password "+ee.getPassword());   	  
-      }
-	}
+//	@Test
+//	public void test2()
+//	{
+//      Employee ee  = emps.getEmployeeByemail("jitudv09@gmail.com");
+//      //System.out.println("did not working "+ee.getEmail()); 
+//       System.out.println("role is "+ee.getRoles().get(0).getRole());
+//      // System.out.println("this is the password "+ee.getPassword());
+//      if(ee == null)
+//      {
+//      System.out.println("yes working ");	  
+//      }
+//      else
+//      {
+//       System.out.println("did not working "+ee.getEmail()+"\t\t this is the password "+ee.getPassword());   	  
+//      }
+//	}
 //	
 	
+	
+//	@Test(expected = Task.class)
+//	public Task taskTest()
+//	{
+//       return  ts.getTaskById(25)
+//	}
 	
 
 }

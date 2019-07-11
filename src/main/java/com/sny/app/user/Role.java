@@ -1,10 +1,13 @@
 package com.sny.app.user;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,9 +16,9 @@ public class Role {
   
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    short  id;
+    short id;
 	
-	@Column(columnDefinition = "DEFAULT 'USER'")
+	@Column(columnDefinition = "varchar(30) default 'USER';")
 	String role;
 	
     public Role() {
@@ -26,7 +29,7 @@ public class Role {
 		super();
 		this.role = role;
 	}
-
+    
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", role=" + role + "]";

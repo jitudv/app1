@@ -10,7 +10,7 @@ public class Task implements Comparable<Task>
 {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name="task_id")
   int id ;
   
@@ -23,14 +23,14 @@ public class Task implements Comparable<Task>
   @Column
   String atComplete;
    
-  @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.DETACH , fetch=FetchType.LAZY)
     @JoinTable(name = "employee_task",
     joinColumns = { @JoinColumn(name = "task_id") },
- 	inverseJoinColumns = { @JoinColumn(name = "employee_id") })
-  List<Employee> emps ;
+ 	inverseJoinColumns = { @JoinColumn(name = "employee_id")})
+    List<Employee> emps ;
    
-  @OneToMany(targetEntity = Comment.class,cascade = CascadeType.ALL)
-  List<Comment> comments ;
+    @OneToMany(targetEntity = Comment.class,cascade = CascadeType.PERSIST)
+    List<Comment> comments ;
   
   public Task(String remark, String atComplete) {
 	super();
@@ -160,6 +160,16 @@ public String toString() {
 	return "Task [id=" + id + ", remark=" + remark + ", asignDate=" + asignDate + ", atComplete=" + atComplete
 			+ ", emps=" + emps + "]";
 }
+
+public List<Comment> getComments() {
+	return comments;
+}
+
+
+public void setComments(List<Comment> comments) {
+	this.comments = comments;
+}
+
 
 @Override
 public int compareTo(Task o) 

@@ -32,7 +32,7 @@ public class Employee  implements Comparable<Employee> ,Serializable
     String lastname;
     
    
-    @Column(columnDefinition = "varchar(20) default 'emp101'")
+    @Column(columnDefinition = "varchar(20) default 'emp101'; ")
 	String empid;
     
     @Column
@@ -48,8 +48,8 @@ public class Employee  implements Comparable<Employee> ,Serializable
    
     
     
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)  // roles  of the user  its one to many association  
-    @Fetch(value=FetchMode.SELECT)
+    @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)  // roles  of the user  its one to many association  
+    @Fetch(value=FetchMode.SUBSELECT)
     List<Role> roles;   
     
     @OneToOne (cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
@@ -61,11 +61,11 @@ public class Employee  implements Comparable<Employee> ,Serializable
 	Address address;  // its a class one to one association  
     
     
-        @ManyToMany(cascade = CascadeType.PERSIST , fetch=FetchType.LAZY)
+        @ManyToMany(cascade = CascadeType.DETACH , fetch=FetchType.LAZY)
         @JoinTable(name = "employee_task",
     	joinColumns = { @JoinColumn(name = "employee_id") },
     	inverseJoinColumns = { @JoinColumn(name = "task_id") })
-        List<Task> taskList ;   //  tasks for the every employee and  its  a many to many association   one employee can have multiple task and  and signle task can assign to multiple employee  
+        List<Task> taskList;   //  tasks for the every employee and  its  a many to many association   one employee can have multiple task and  and signle task can assign to multiple employee  
     
     public Employee(int id, String name, String lastname, String empid, String password, @Email String email,
 		String gender, String  dob, List<Role> roles, Department dept, Address address, List<Task> taskList) {
@@ -115,12 +115,12 @@ public class Employee  implements Comparable<Employee> ,Serializable
 	}
 
 
-	public String getDateOfBirth() {
+	public String getDob() {
 		return dob;
 	}
 
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDob(String dob) {
 		this.dob =dob;
 	}
 
@@ -251,7 +251,7 @@ public class Employee  implements Comparable<Employee> ,Serializable
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", lastname=" + lastname + ", empid=" + empid + ", password="
-				+ password + ", email=" + email + ", gender=" + gender + ", dateOfBirth is \t=" + dob + ", roles="
+				+ password + ", email=" + email + ", gender=" + gender + ", dob is \t=" + dob + ", roles="
 				+ roles + ", dept=" + dept + ", address=" + address + ", taskList=" + taskList + "]";
 	}
 

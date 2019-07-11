@@ -36,11 +36,15 @@ public class LoginLogoutController
 	 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	 String[] usernameAndPasword =msg.split(" ");
 	 String username =  usernameAndPasword[1];
+	
+	 //log.info("this is header \t\t\t "+username);
 	 byte[] decodeUsername =  Base64.getDecoder().decode(username);
+	 
 	 log.warn("\t\t\t\t\t\t  this is the decode username and password  \t\t"+new String(decodeUsername));
 	 log.warn("\t\t\t\t\t\t\t your athentication \t "+msg);
 	 String currentPrincipalName = authentication.getName();
 	 String currentPrincipalRole = authentication.getAuthorities().iterator().next().getAuthority().toString();
+	 String userpass = new String(decodeUsername).split(":")[1];
 	 Employee ee = new Employee();
 	 ee.setName(currentPrincipalName);
 	 HttpSession session = req.getSession(false);
@@ -52,7 +56,7 @@ public class LoginLogoutController
 		 log.warn("session does not created properly  ");
 	 }
 	 
-    return ResponseEntity.ok("{ \n "+"\"name\":\""+currentPrincipalName +"\",\n"+"\"role\":\""+ currentPrincipalRole+"\",\"sessoinid\":\""+session.getId()+"\"\n }");	 
+    return ResponseEntity.ok("{ \n " +"\"username\":\""+currentPrincipalName +"\",\n"+"\"role\":\""+ currentPrincipalRole+"\",\"password\":\""+userpass+"\"\n }");	 
  }
  
  

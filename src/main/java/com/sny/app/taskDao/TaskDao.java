@@ -9,7 +9,7 @@ import com.sny.app.task.Task;
 
 public interface TaskDao extends JpaRepository<Task, Integer> 
 {
-  //
+   //
 	@Query( value = "select * from  Task where user id=?1", nativeQuery = true)
 	public List<Task> getTaskByUserId(int id);
 }

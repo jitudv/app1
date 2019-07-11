@@ -69,4 +69,11 @@ public class EmployeeSeverviceImplimentation implements EmployeeService {
 		return  empdao.getEmployeeByemail(email);
 	}
 
+	@Override
+	public List<Object> getEmployeeNameAndId() {
+	
+		return empdao.getemployeeNameId();
+	}
+		//return 
+
 }

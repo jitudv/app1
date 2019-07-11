@@ -11,5 +11,6 @@ import com.sny.app.user.Employee;
  public Employee getEmployee(int id );
  public List<Employee> getEmployees();
  public Employee getEmployeeByemail(String email);
+ public List<Object> getEmployeeNameAndId();
  
 }
