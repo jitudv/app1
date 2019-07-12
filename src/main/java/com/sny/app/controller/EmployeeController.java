@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sny.app.departmentService.DepartmentService;
 import com.sny.app.employeeService.EmployeeService;
 import com.sny.app.roleModule.RoleService;
@@ -73,6 +75,7 @@ public class EmployeeController
  }
    
    @GetMapping(value="/admin/employee" , produces = MediaType.APPLICATION_JSON_VALUE)
+   @JsonIgnore
    public ResponseEntity<List<Employee>> emplist()
    {   
 	   // url must be  http://locahost:8001/admin/employee/

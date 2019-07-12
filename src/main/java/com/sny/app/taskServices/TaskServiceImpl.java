@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sny.app.payload.TaskUserDto;
 import com.sny.app.task.Task;
 import com.sny.app.taskDao.TaskDao;
 
@@ -20,7 +21,7 @@ public class TaskServiceImpl implements TaskService  {
 	 
 	
 	@Override
-	public List<Task> getTaskByUserId(int id)    // get Task for perticular user 
+	public List<TaskUserDto> getTaskByUserId(int id)    // get Task for perticular user 
 	{
 		return tdao.getTaskByUserId(id); // it will return you task of perticula user 
 		

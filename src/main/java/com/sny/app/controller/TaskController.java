@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sny.app.employeeService.EmployeeService;
+import com.sny.app.payload.TaskUserDto;
 import com.sny.app.task.Task;
 import com.sny.app.taskServices.TaskService;
 import com.sny.app.user.Employee;
@@ -41,11 +42,11 @@ public class TaskController {
 	@Autowired
 	EmployeeService es ;
 	
-	@GetMapping(value="/user/task/{userid)"  , produces = MediaType.APPLICATION_JSON_VALUE )
-	public ResponseEntity<List<Task>> getTaksByUserId(@PathVariable("userid") int id)
+	@GetMapping(value="/user/task/{userid}"  , produces = MediaType.APPLICATION_JSON_VALUE )
+	public ResponseEntity<List<TaskUserDto>> getTaksByUserId(@PathVariable("userid") int id)
 	{    log.warn(" task of perticular user =\t  "+ts.getTaskByUserId(id));
 		// get task of perticular  employee  some times it may be  more then one  
-		return ResponseEntity.ok(ts.getTaskByUserId(id));
+	    return ResponseEntity.ok(ts.getTaskByUserId(id));
 	}
 	
 	@GetMapping("/task/{id}")

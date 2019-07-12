@@ -1,6 +1,7 @@
 package com.sny.app.user;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sny.app.task.*;
 
 import java.io.Serializable;
@@ -61,10 +62,11 @@ public class Employee  implements Comparable<Employee> ,Serializable
 	Address address;  // its a class one to one association  
     
     
-        @ManyToMany(cascade = CascadeType.DETACH , fetch=FetchType.LAZY)
+        @ManyToMany(cascade = CascadeType.PERSIST , fetch=FetchType.EAGER)
         @JoinTable(name = "employee_task",
     	joinColumns = { @JoinColumn(name = "employee_id") },
     	inverseJoinColumns = { @JoinColumn(name = "task_id") })
+        @JsonIgnore
         List<Task> taskList;   //  tasks for the every employee and  its  a many to many association   one employee can have multiple task and  and signle task can assign to multiple employee  
     
     public Employee(int id, String name, String lastname, String empid, String password, @Email String email,
