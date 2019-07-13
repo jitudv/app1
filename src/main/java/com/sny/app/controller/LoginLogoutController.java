@@ -1,9 +1,5 @@
 package com.sny.app.controller;
 
-
-
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +16,7 @@ import java.security.Principal;
 import java.util.Base64;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sny.app.securityConfig.MyPrinciple;
 import com.sny.app.user.Employee;
 
 @CrossOrigin(origins = "http://localhost:4200" ,maxAge = 3600)
@@ -32,16 +29,19 @@ public class LoginLogoutController
  @GetMapping(value="/user/login",produces=MediaType.APPLICATION_JSON_VALUE )
  public ResponseEntity<String> userLogin(HttpServletRequest req)
  { 
+	 
 	 String msg =  req.getHeader("Authorization");
 	 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	 String[] usernameAndPasword =msg.split(" ");
 	 String username =  usernameAndPasword[1];
 	
 	 //log.info("this is header \t\t\t "+username);
+	 
 	 byte[] decodeUsername =  Base64.getDecoder().decode(username);
 	 
-	 log.warn("\t\t\t\t\t\t  this is the decode username and password  \t\t"+new String(decodeUsername));
-	 log.warn("\t\t\t\t\t\t\t your athentication \t "+msg);
+	   log.warn("\t\t\t\t\t\t  this is the decode username and password  \t\t"+new String(decodeUsername));
+	   log.warn("\t\t\t\t\t\t\t your athentication \t "+msg);
+	 
 	 String currentPrincipalName = authentication.getName();
 	 String currentPrincipalRole = authentication.getAuthorities().iterator().next().getAuthority().toString();
 	 String userpass = new String(decodeUsername).split(":")[1];
@@ -50,14 +50,16 @@ public class LoginLogoutController
 	 HttpSession session = req.getSession(false);
 	 if(session != null)
 	 {
-	   log.warn("session is created properly and this si  session atribute  "+session.getId());
+	     log.warn("session is created properly and this si  session atribute  "+session.getId());
 	 }
-	 else {
-		 log.warn("session does not created properly  ");
+	 else 
+	 {
+      log.warn("session does not created properly  ");
 	 }
-	 
-    return ResponseEntity.ok("{ \n " +"\"username\":\""+currentPrincipalName +"\",\n"+"\"role\":\""+ currentPrincipalRole+"\",\"password\":\""+userpass+"\"\n }");	 
+	  return ResponseEntity.ok("{ \n " + "\"username\":\""+currentPrincipalName +
+	 "\",\n"+"\"role\":\""+ currentPrincipalRole+
+	 "\",\n\"password\":\""+userpass+"\", \n \"userid\":\""+MyPrinciple.userId
+	                                     +"\" \n }");	 
  }
- 
  
 }

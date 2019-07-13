@@ -13,7 +13,7 @@ import com.sny.app.user.Employee;
 public class MyPrinciple implements UserDetails  {
    
 	Log log = LogFactory.getLog(MyPrinciple.class);
-	
+	public static  int userId;
 	Employee user =null;
 	
 	MyPrinciple(Employee usr)
@@ -27,7 +27,9 @@ public class MyPrinciple implements UserDetails  {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-     log.warn(user.getRoles().get(0).getRole());		 
+     log.warn(user.getRoles().get(0).getRole());
+     log.warn("this is the user id "+user.getId());
+     userId=user.getId();
      return  Collections.singleton( new SimpleGrantedAuthority(user.getRoles().get(0).getRole()));
 	}
 

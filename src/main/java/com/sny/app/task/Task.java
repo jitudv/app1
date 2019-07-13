@@ -1,9 +1,46 @@
 package com.sny.app.task;
 import java.sql.Date;
 import java.util.List;
+
+import com.sny.app.payload.TaskUserDto;
 import com.sny.app.user.*;
 
 import javax.persistence.*;
+
+
+//@SqlResultSetMapping(
+//	    name="TaskUserDto",
+//	    classes={
+//	        @ConstructorResult(
+//	        targetClass=TaskUserDto.class,
+//	              columns={
+//	            		  @ColumnResult(name="task_id",     type = Integer.class),
+//	            		  @ColumnResult(name="asign_date",  type = String.class),
+//	            		  @ColumnResult(name="at_complete", type = String.class),
+//	            		  @ColumnResult(name="remark",      type = String.class),
+//	            		  @ColumnResult(name="empid",       type = Integer.class)
+//	                    }   
+//	           )}
+//	) 
+
+
+@SqlResultSetMapping(
+		name = "TaskUserDto", 
+		entities = @EntityResult(
+			entityClass = Task.class, 
+			fields = {
+				@FieldResult(name = "taskId", column = "id"),
+				@FieldResult(name = "asignDate", column = "asign_date"),
+				@FieldResult(name = "atComplete", column = "at_complete"),
+				@FieldResult(name = "remark", column = "remark"),
+				@FieldResult(name = "employeeId", column = "employee_id")}))
+//
+//@NamedNativeQuery(
+//	    name="getTaskOfPerticularUser", 
+//	    query="select t.task_id, t.asign_date, t.at_complete, t.remark  from task_table as t  join employee_task on t.task_id=employee_task.task_id where employee_task.employee_id=?1", 
+//	    resultSetMapping="TaskUserDto")
+//
+
 @Entity
 @Table(name="task_table")
 public class Task implements Comparable<Task>  
