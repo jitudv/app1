@@ -23,7 +23,7 @@ public class Comment  implements Comparable<Comment>
     @JoinColumn(name = "task_id")
     Task task ;
     
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST , orphanRemoval=true)
     Employee emp;
 
 	public Comment(String commetn, String dateTimeComment) {

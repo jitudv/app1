@@ -1,9 +1,6 @@
 package com.sny.app.controller;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
  
@@ -47,20 +43,18 @@ public class TestController
 	
 	@GetMapping("/logout/both")
 	public ResponseEntity<String> logoutDo(HttpServletRequest request,HttpServletResponse response){
-	HttpSession session= request.getSession(false);
-	log.warn(" this is the session attribute names \t  "+session.getAttributeNames());
-	    SecurityContextHolder.clearContext();
+     
+		HttpSession session= request.getSession(false);
+	    log.warn(" this is the session attribute names \t  "+session.getAttributeNames());
+	        SecurityContextHolder.clearContext();
 	         session= request.getSession(false);
 	        if(session != null) {
 	        	log.warn("yes sessioni not null ");
 	            session.invalidate();
 	            log.warn("session is destroyred ");
 	        }
-	        for(Cookie cookie : request.getCookies()) {
-	            cookie.setMaxAge(0);
-	        }
-        
-	    return ResponseEntity.ok("logout");
+	       
+		     return ResponseEntity.ok("logout");
 	}
 	
 	

@@ -33,7 +33,7 @@ public class Employee  implements Comparable<Employee> ,Serializable
     String lastname;
     
    
-    @Column(columnDefinition = "varchar(20) default 'emp101'; ")
+    @Column //(columnDefinition = "varchar(20) default 'emp101'; ")
 	String empid;
     
     @Column

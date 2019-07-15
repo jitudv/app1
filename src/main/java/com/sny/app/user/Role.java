@@ -18,7 +18,7 @@ public class Role {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     short id;
 	
-	@Column(columnDefinition = "varchar(30) default 'USER';")
+	@Column //(columnDefinition = "varchar(30) default 'USER';")
 	String role;
 	
     public Role() {

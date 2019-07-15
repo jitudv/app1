@@ -23,8 +23,7 @@ import com.sny.app.user.Employee;
 @RestController
 public class LoginLogoutController
 {
-	
-  Log log = LogFactory.getLog(LoginLogoutController.class);	
+	 Log log = LogFactory.getLog(LoginLogoutController.class);	
  // method is responsible for login and start a session 	
  @GetMapping(value="/user/login",produces=MediaType.APPLICATION_JSON_VALUE )
  public ResponseEntity<String> userLogin(HttpServletRequest req)
@@ -59,7 +58,8 @@ public class LoginLogoutController
 	  return ResponseEntity.ok("{ \n " + "\"username\":\""+currentPrincipalName +
 	 "\",\n"+"\"role\":\""+ currentPrincipalRole+
 	 "\",\n\"password\":\""+userpass+"\", \n \"userid\":\""+MyPrinciple.userId
-	                                     +"\" \n }");	 
- }
+	                                     +"\" \n }");
+	  }
+    
  
 }

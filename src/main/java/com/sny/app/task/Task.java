@@ -23,7 +23,6 @@ import javax.persistence.*;
 //	           )}
 //	) 
 
-
 @SqlResultSetMapping(
 		name = "TaskUserDto", 
 		entities = @EntityResult(
@@ -59,6 +58,10 @@ public class Task implements Comparable<Task>
   
   @Column
   String atComplete;
+  
+//  @Column
+//  short  completed;  // true for complete the task and false is  not completed    
+//  
    
     @ManyToMany(cascade = CascadeType.DETACH , fetch=FetchType.LAZY)
     @JoinTable(name = "employee_task",

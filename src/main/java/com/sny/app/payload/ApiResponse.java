@@ -12,7 +12,7 @@ public class ApiResponse
     private String error;
     private Boolean isResponseOnPage;
     
-	public ApiResponse(int status, String message, Object data, String error, Boolean isResponseOnPage)
+   public ApiResponse(int status, String message, Object data, String error, Boolean isResponseOnPage)
    {
 		super();
 		this.status = status;
