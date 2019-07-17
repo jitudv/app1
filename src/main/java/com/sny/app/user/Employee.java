@@ -48,8 +48,6 @@ public class Employee  implements Comparable<Employee>
     String gender;
     
    
-    
-    
     @OneToMany(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)  // roles  of the user  its one to many association  
     @Fetch(value=FetchMode.SUBSELECT)
     List<Role> roles;   
@@ -67,8 +65,7 @@ public class Employee  implements Comparable<Employee>
         @JoinTable(name = "employee_task",
     	joinColumns = { @JoinColumn(name = "employee_id") },
     	inverseJoinColumns = { @JoinColumn(name = "task_id") })
-        @JsonIgnore
-        Set<Task> tasks;   //  tasks for the every employee and  its  a many to many association   one employee can have multiple task and  and signle task can assign to multiple employee  
+        Set<Task> tasks;  //  tasks for the every employee and  its  a many to many association   one employee can have multiple task and  and signle task can assign to multiple employee  
     
     public Employee(int id, String name, String lastname, String empid, String password, @Email String email,
 		String gender, String  dob, List<Role> roles, Department department, Address address, Set<Task> taskList) {
@@ -161,7 +158,8 @@ public class Employee  implements Comparable<Employee>
 	public void setTaskList(Set<Task> tasks) {
 		this.tasks = tasks;
 	}
-
+	
+	@JsonIgnore
 	public Set<Task> getTaskList() {
 		return tasks;
 	}
@@ -264,5 +262,4 @@ public class Employee  implements Comparable<Employee>
 		return this.id-o.id;
 	}
 	
-      
 }

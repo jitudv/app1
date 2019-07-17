@@ -1,13 +1,8 @@
 package com.sny.app.task;
-import java.sql.Date;
-import java.util.List;
 import java.util.Set;
-
-import com.sny.app.payload.TaskUserDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sny.app.user.*;
-
 import javax.persistence.*;
-
 
 //@SqlResultSetMapping(
 //	    name="TaskUserDto",
@@ -24,16 +19,16 @@ import javax.persistence.*;
 //	           )}
 //	) 
 
-@SqlResultSetMapping(
-		name = "TaskUserDto", 
-		entities = @EntityResult(
-			entityClass = Task.class, 
-			fields = {
-				@FieldResult(name = "taskId", column = "id"),
-				@FieldResult(name = "asignDate", column = "asign_date"),
-				@FieldResult(name = "atComplete", column = "at_complete"),
-				@FieldResult(name = "remark", column = "remark"),
-				@FieldResult(name = "employeeId", column = "employee_id")}))
+//@SqlResultSetMapping(
+//		name = "TaskUserDto", 
+//		entities = @EntityResult(
+//			entityClass = Task.class, 
+//			fields = {
+//				@FieldResult(name = "taskId", column = "id"),
+//				@FieldResult(name = "asignDate", column = "asign_date"),
+//				@FieldResult(name = "atComplete", column = "at_complete"),
+//				@FieldResult(name = "remark", column = "remark"),
+//				@FieldResult(name = "employeeId", column = "employee_id")}))
 //
 //@NamedNativeQuery(
 //	    name="getTaskOfPerticularUser", 
@@ -60,9 +55,9 @@ public class Task implements Comparable<Task>
   @Column
   String atComplete;
   
-//  @Column
-//  short  completed;  // true for complete the task and false is  not completed    
-//  
+  @Column
+  short  completed;  // 1  for complete the task and  0  is  not completed  default value is 0     
+  
    
     @ManyToMany(cascade = CascadeType.DETACH , fetch=FetchType.LAZY)
     @JoinTable(name = "employee_task",
@@ -70,22 +65,23 @@ public class Task implements Comparable<Task>
  	inverseJoinColumns = { @JoinColumn(name = "employee_id")})
     Set<Employee> employees ;
    
-    @OneToMany(targetEntity = Comment.class,cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = Comment.class,cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     Set<Comment> comments ;
   
-  public Task(String remark, String atComplete) {
+    public Task(String remark, String atComplete) {
 	super();
 	this.remark = remark;
 	this.atComplete = atComplete;
    }
 
   
-public Task(String remark, String asignDate,  String atComplete) {
+public Task(String remark, String asignDate,  String atComplete, short completed) {
 
 	super();
 	this.remark = remark;
 	this.asignDate = asignDate;
 	this.atComplete = atComplete;
+	this.completed=completed;
 }
 
 public Task()
@@ -125,52 +121,6 @@ public void setRemark(String remark)
 	this.remark = remark;
 }
 
-@Override
-public int hashCode() 
-{
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((asignDate == null) ? 0 : asignDate.hashCode());
-	result = prime * result + ((atComplete == null) ? 0 : atComplete.hashCode());
-	result = prime * result + ((employees == null) ? 0 : employees.hashCode());
-	result = prime * result + id;
-	result = prime * result + ((remark == null) ? 0 : remark.hashCode());
-	return result;
-}
-
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Task other = (Task) obj;
-	if (asignDate == null) {
-		if (other.asignDate != null)
-			return false;
-	} else if (!asignDate.equals(other.asignDate))
-		return false;
-	if (atComplete == null) {
-		if (other.atComplete != null)
-			return false;
-	} else if (!atComplete.equals(other.atComplete))
-		return false;
-	if (employees == null) {
-		if (other.employees != null)
-			return false;
-	} else if (!employees.equals(other.employees))
-		return false;
-	if (id != other.id)
-		return false;
-	if (remark == null) {
-		if (other.remark != null)
-			return false;
-	} else if (!remark.equals(other.remark))
-		return false;
-	return true;
-}
 
 public String getAsignDate() {
 	return asignDate;
@@ -188,6 +138,8 @@ public void setAtComplete(String atComplete) {
 	this.atComplete = atComplete;
 }
 
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public Set<Employee> getEmps() {
 	return employees;
 }
@@ -196,14 +148,35 @@ public void setEmps(Set<Employee> employees) {
 	this.employees = employees;
 }
 
-@Override
-public String toString() {
-	return "Task [id=" + id + ", remark=" + remark + ", asignDate=" + asignDate + ", atComplete=" + atComplete
-			+ ", emps=" + employees + "]";
-}
+//@Override
+//public String toString() {
+//	return "Task [id=" + id + ", remark=" + remark + ", asignDate=" + asignDate + ", atComplete=" + atComplete
+//			+ ", emps=" + employees + "]";
+//}
+
 
 public Set<Comment> getComments() {
 	return comments;
+}
+
+
+public short getCompleted() {
+	return completed;
+}
+
+
+public void setCompleted(short completed) {
+	this.completed = completed;
+}
+
+
+public Set<Employee> getEmployees() {
+	return employees;
+}
+
+
+public void setEmployees(Set<Employee> employees) {
+	this.employees = employees;
 }
 
 

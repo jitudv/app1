@@ -17,38 +17,42 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void addcomment(Comment comment) {
-		// TODO Auto-generated method stub
-		
+	   cd.save(comment);	
 	}
 
 	@Override
 	public void deletComment(int id) {
-		// TODO Auto-generated method stub
+		cd.delete(cd.getOne(id));
 		
 	}
 
 	@Override
 	public void updateComment(Comment comment) {
-		// TODO Auto-generated method stub
-		
-	}
+		 Comment cm =   new Comment();
+		 cm.setCommentRemark(comment.getCommentRemark());
+		 cm.setDateTimeComment(comment.getDateTimeComment());
+		 cm.setEmp(comment.getEmp());
+		 cm.setId(comment.getId());
+		 cm.setTask(comment.getTask());
+		 cd.save(cm);
+		}
 
 	@Override
-	public void getComment(int id) {
-		// TODO Auto-generated method stub
-		
+	public Comment getComment(int id) {
+		 return  cd.findById(id).get();
+				 
 	}
 
 	@Override
 	public List<Comment> getcomments() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return cd.findAll();
 	}
 
 	@Override
 	public Comment getCommentByUser(int userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return  cd.findByEmployeeId(userId);
 	}
 
 	@Override

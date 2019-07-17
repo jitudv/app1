@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +20,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sny.app.employeeService.EmployeeService;
+import com.sny.app.payload.ApiResponse;
 import com.sny.app.payload.TaskUserDto;
 import com.sny.app.task.Task;
 import com.sny.app.taskServices.TaskService;
 import com.sny.app.user.Employee;
-
 
 @CrossOrigin(origins = {"http://localhost:4200","http://localhost:4100"})
 @RestController
@@ -52,10 +50,10 @@ public class TaskController {
 	}
 	
 	@GetMapping("/task/{id}")
-	public ResponseEntity<Task> getTask(@PathVariable("id") int id )
+	public ResponseEntity<TaskUserDto> getTask(@PathVariable("id") int id )
 	{   
-		
-		return ResponseEntity.ok(ts.getTaskById(id));
+	
+	     return ResponseEntity.ok(ts.getTaskById(id));
 		// it will return the  task  based on   id  given by  end user 
 	}
 	
@@ -90,7 +88,7 @@ public class TaskController {
 	@PutMapping("/admin/task/{id}")
 	public ResponseEntity<String> updateTask(@RequestBody Task task, @PathVariable int id )
 	{ 
-		Task t = ts.getTaskById(id);
+		Task t  =  ts.getOne(id);                    // task is return  Object mapping 
 		t.setAsignDate(task.getAsignDate());
 		t.setAtComplete(task.getAtComplete());
 		t.setEmps(task.getEmps());
@@ -121,5 +119,15 @@ public class TaskController {
 		return ResponseEntity.ok(list);
 		}
 	
+	@PutMapping("/user/task/updatestatus/{taskid}")
+	public  ResponseEntity<ApiResponse> taskStatusChangedToComplete(@PathVariable("taskid") int taskid)
+	{
+	   ts.changeTaskCompleted(taskid);
+	   log.warn("yes task status is changed ");
+       ApiResponse res = new ApiResponse();
+       res.setMessage("completed");
+       res.setStatus(200);
+       return  ResponseEntity.ok(res);
+	}
 	
 }

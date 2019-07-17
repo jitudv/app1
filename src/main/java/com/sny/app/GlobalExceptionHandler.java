@@ -41,5 +41,13 @@ public class GlobalExceptionHandler {
 		ErrorDetails er = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(er, HttpStatus.NO_CONTENT);
 	}
+	
+	@ExceptionHandler(StackOverflowError.class)
+	ResponseEntity<ErrorDetails> stackOverflowError(StackOverflowError ex , WebRequest request)
+	{
+		// geting the error for stackOverflow error 
+	    ErrorDetails  er = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new  ResponseEntity<>(er,HttpStatus.PAYLOAD_TOO_LARGE);	
+	}
 
 }

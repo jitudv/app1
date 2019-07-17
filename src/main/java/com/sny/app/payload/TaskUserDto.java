@@ -14,18 +14,20 @@ public class TaskUserDto
 	String  atComplete; 
 	String  remark;
 	int     employeeId;
+	short     completed ;
 	
 	public TaskUserDto() {
 		super();
 	}
 	
-	public TaskUserDto(int taskId, String asignDate, String atComplete, String remark, int employeeId) {
+	public TaskUserDto(int taskId, String asignDate, String atComplete, String remark, int employeeId ,short completed ) {
 		super();
 		this.taskId = taskId;
 		this.asignDate = asignDate;
 		this.atComplete = atComplete;
 		this.remark = remark;
 		this.employeeId = employeeId;
+		this.completed=completed;
 	}
 	public TaskUserDto(int taskId, String asignDate, String atComplete, String remark) {
 		super();
@@ -34,6 +36,14 @@ public class TaskUserDto
 		this.atComplete = atComplete;
 		this.remark = remark;
 	}
+	public short getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(short completed) {
+		this.completed = completed;
+	}
+
 	public int getTaskId() {
 		return taskId;
 	}

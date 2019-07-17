@@ -23,9 +23,7 @@ public class Comment  implements Comparable<Comment>
     @JoinColumn(name = "task_id")
     Task task ;
     
-    
-    
-    @OneToOne(cascade = CascadeType.PERSIST , orphanRemoval=true)
+    @OneToOne(cascade = CascadeType.MERGE , orphanRemoval=true)
     Employee employee;
 
 	public Comment(String commentRemark, String dateTimeComment) {
@@ -51,16 +49,26 @@ public class Comment  implements Comparable<Comment>
 		return id;
 	}
 
+	public String getCommentRemark() {
+		return commentRemark;
+	}
+
+	public void setCommentRemark(String commentRemark) {
+		this.commentRemark = commentRemark;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getCommetn() {
-		return commentRemark;
-	}
-
-	public void setCommetn(String commentRemark) {
-	}
 
 	public String getDateTimeComment() {
 		return dateTimeComment;
@@ -69,7 +77,7 @@ public class Comment  implements Comparable<Comment>
 	public void setDateTimeComment(String dateTimeComment) {
 		this.dateTimeComment = dateTimeComment;
 	}
-
+    
 	public Task getTask() {
 		return task;
 	}
