@@ -3,7 +3,9 @@ package com.sny.app.controller;
 //import java.util.Date;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,7 +74,7 @@ public class TaskController {
         // log.info(task.getAtComplete().toString());
 	     String assignDate  = new Date(System.currentTimeMillis()).toString();
 		
-		List<Employee> list = new ArrayList<Employee>();
+		Set<Employee> list = new HashSet<Employee>();
         
         for(int i=(ids.length-1);i> -1;i--)
 		{

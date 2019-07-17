@@ -7,6 +7,8 @@ import com.sny.app.task.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import javax.validation.constraints.Email;
 
 import org.hibernate.annotations.Fetch;
@@ -14,16 +16,15 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="employee_master")
-public class Employee  implements Comparable<Employee> ,Serializable
+public class Employee  implements Comparable<Employee>
 {  
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="employee_id")
 	int id; // its a auto generated field  
 	
-	 @Column
-	 String dob;
+	@Column
+	String dob;
 	 
 	 
     @Column(name="emp_name")
@@ -55,7 +56,7 @@ public class Employee  implements Comparable<Employee> ,Serializable
     
     @OneToOne (cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
     @JoinColumn(name="department_id")
-	Department dept;   // its a  class one to one   association     
+	Department department;   // its a  class one to one   association     
 	
     @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     @JoinColumn(name="address_id")
@@ -67,10 +68,10 @@ public class Employee  implements Comparable<Employee> ,Serializable
     	joinColumns = { @JoinColumn(name = "employee_id") },
     	inverseJoinColumns = { @JoinColumn(name = "task_id") })
         @JsonIgnore
-        List<Task> taskList;   //  tasks for the every employee and  its  a many to many association   one employee can have multiple task and  and signle task can assign to multiple employee  
+        Set<Task> tasks;   //  tasks for the every employee and  its  a many to many association   one employee can have multiple task and  and signle task can assign to multiple employee  
     
     public Employee(int id, String name, String lastname, String empid, String password, @Email String email,
-		String gender, String  dob, List<Role> roles, Department dept, Address address, List<Task> taskList) {
+		String gender, String  dob, List<Role> roles, Department department, Address address, Set<Task> taskList) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -81,9 +82,9 @@ public class Employee  implements Comparable<Employee> ,Serializable
 		this.gender = gender;
 		this.dob = dob;
 		this.roles = roles;
-		this.dept = dept;
+		this.department = department;
 		this.address = address;
-		this.taskList = taskList;
+		this.tasks = taskList;
 	}
 
 
@@ -157,16 +158,16 @@ public class Employee  implements Comparable<Employee> ,Serializable
 		this.roles = roles;
 	}
 
-	public void setTaskList(List<Task> taskList) {
-		this.taskList = taskList;
+	public void setTaskList(Set<Task> tasks) {
+		this.tasks = tasks;
 	}
 
-	public List<Task> getTaskList() {
-		return taskList;
+	public Set<Task> getTaskList() {
+		return tasks;
 	}
 
-	public void setTask(List<Task> task) {
-		this.taskList = task;
+	public void setTask(Set<Task> task) {
+		this.tasks = task;
 	}
 
 	public int getId() {
@@ -195,11 +196,11 @@ public class Employee  implements Comparable<Employee> ,Serializable
 	}
 
 	public Department getDept() {
-		return dept;
+		return department;
 	}
 
-	public void setDept(Department dept) {
-		this.dept = dept;
+	public void setDept(Department department) {
+		this.department = department;
 	}
 
 	public Address getAddress() {
@@ -254,7 +255,7 @@ public class Employee  implements Comparable<Employee> ,Serializable
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", lastname=" + lastname + ", empid=" + empid + ", password="
 				+ password + ", email=" + email + ", gender=" + gender + ", dob is \t=" + dob + ", roles="
-				+ roles + ", dept=" + dept + ", address=" + address + ", taskList=" + taskList + "]";
+				+ roles + ", dept=" + department + ", address=" + address + ", taskList=" + tasks + "]";
 	}
 
 	@Override

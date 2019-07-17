@@ -1,6 +1,7 @@
 package com.sny.app.task;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.sny.app.payload.TaskUserDto;
 import com.sny.app.user.*;
@@ -67,10 +68,10 @@ public class Task implements Comparable<Task>
     @JoinTable(name = "employee_task",
     joinColumns = { @JoinColumn(name = "task_id") },
  	inverseJoinColumns = { @JoinColumn(name = "employee_id")})
-    List<Employee> emps ;
+    Set<Employee> employees ;
    
     @OneToMany(targetEntity = Comment.class,cascade = CascadeType.PERSIST)
-    List<Comment> comments ;
+    Set<Comment> comments ;
   
   public Task(String remark, String atComplete) {
 	super();
@@ -92,7 +93,7 @@ public Task()
 	super();
 }
 
-public Task(int id, String remark, String asignDate,  String atComplete, List<Employee> emps, List<Comment> comments)
+public Task(int id, String remark, String asignDate,  String atComplete, Set<Employee> employees, Set<Comment> comments)
 
 {
 	super();
@@ -100,7 +101,7 @@ public Task(int id, String remark, String asignDate,  String atComplete, List<Em
 	this.remark = remark;
 	this.asignDate = asignDate;
 	this.atComplete = atComplete;
-	this.emps = emps;
+	this.employees = employees;
 	this.comments = comments;
 }
 
@@ -131,7 +132,7 @@ public int hashCode()
 	int result = 1;
 	result = prime * result + ((asignDate == null) ? 0 : asignDate.hashCode());
 	result = prime * result + ((atComplete == null) ? 0 : atComplete.hashCode());
-	result = prime * result + ((emps == null) ? 0 : emps.hashCode());
+	result = prime * result + ((employees == null) ? 0 : employees.hashCode());
 	result = prime * result + id;
 	result = prime * result + ((remark == null) ? 0 : remark.hashCode());
 	return result;
@@ -156,10 +157,10 @@ public boolean equals(Object obj) {
 			return false;
 	} else if (!atComplete.equals(other.atComplete))
 		return false;
-	if (emps == null) {
-		if (other.emps != null)
+	if (employees == null) {
+		if (other.employees != null)
 			return false;
-	} else if (!emps.equals(other.emps))
+	} else if (!employees.equals(other.employees))
 		return false;
 	if (id != other.id)
 		return false;
@@ -187,26 +188,26 @@ public void setAtComplete(String atComplete) {
 	this.atComplete = atComplete;
 }
 
-public List<Employee> getEmps() {
-	return emps;
+public Set<Employee> getEmps() {
+	return employees;
 }
 
-public void setEmps(List<Employee> emps) {
-	this.emps = emps;
+public void setEmps(Set<Employee> employees) {
+	this.employees = employees;
 }
 
 @Override
 public String toString() {
 	return "Task [id=" + id + ", remark=" + remark + ", asignDate=" + asignDate + ", atComplete=" + atComplete
-			+ ", emps=" + emps + "]";
+			+ ", emps=" + employees + "]";
 }
 
-public List<Comment> getComments() {
+public Set<Comment> getComments() {
 	return comments;
 }
 
 
-public void setComments(List<Comment> comments) {
+public void setComments(Set<Comment> comments) {
 	this.comments = comments;
 }
 

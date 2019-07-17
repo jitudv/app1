@@ -2,7 +2,6 @@ package com.sny.app.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sny.app.departmentService.DepartmentService;
 import com.sny.app.employeeService.EmployeeService;
@@ -65,7 +63,7 @@ public class EmployeeController
    {   
 	   // web service store the employee to  database using  url  http://pc1:8001/employee/{dept} 
 	     emp.setDept(dser.getDepartmentByid(deptid));
-         List<Role> role = new ArrayList();
+         List<Role> role = new ArrayList<Role>();
 	     role.add(new Role("USER"));
  	     emp.setRoles(role);
 	     eservice.addEmploye(emp);

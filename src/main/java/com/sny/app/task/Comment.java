@@ -14,31 +14,33 @@ public class Comment  implements Comparable<Comment>
     int id ;
     
     @Column
-    String commetn;
+    String commentRemark;
     
     @Column
     String dateTimeComment;
     
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     Task task ;
     
+    
+    
     @OneToOne(cascade = CascadeType.PERSIST , orphanRemoval=true)
-    Employee emp;
+    Employee employee;
 
-	public Comment(String commetn, String dateTimeComment) {
+	public Comment(String commentRemark, String dateTimeComment) {
 		super();
-		this.commetn = commetn;
+		this.commentRemark = commentRemark;
 		this.dateTimeComment = dateTimeComment;
 	}
 
-	public Comment(int id, String commetn, String dateTimeComment, Task task, Employee emp) {
+	public Comment(int id, String commentRemark, String dateTimeComment, Task task, Employee employee) {
 		super();
 		this.id = id;
-		this.commetn = commetn;
+		this.commentRemark = commentRemark;
 		this.dateTimeComment = dateTimeComment;
 		this.task = task;
-		this.emp = emp;
+		this.employee = employee;
 	}
 
 	public Comment() {
@@ -54,11 +56,10 @@ public class Comment  implements Comparable<Comment>
 	}
 
 	public String getCommetn() {
-		return commetn;
+		return commentRemark;
 	}
 
-	public void setCommetn(String commetn) {
-		this.commetn = commetn;
+	public void setCommetn(String commentRemark) {
 	}
 
 	public String getDateTimeComment() {
@@ -78,20 +79,20 @@ public class Comment  implements Comparable<Comment>
 	}
 
 	public Employee getEmp() {
-		return emp;
+		return employee;
 	}
 
-	public void setEmp(Employee emp) {
-		this.emp = emp;
+	public void setEmp(Employee employee) {
+		this.employee = employee;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((commetn == null) ? 0 : commetn.hashCode());
+		result = prime * result + ((commentRemark == null) ? 0 : commentRemark.hashCode());
 		result = prime * result + ((dateTimeComment == null) ? 0 : dateTimeComment.hashCode());
-		result = prime * result + ((emp == null) ? 0 : emp.hashCode());
+		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((task == null) ? 0 : task.hashCode());
 		return result;
@@ -106,20 +107,20 @@ public class Comment  implements Comparable<Comment>
 		if (getClass() != obj.getClass())
 			return false;
 		Comment other = (Comment) obj;
-		if (commetn == null) {
-			if (other.commetn != null)
+		if (commentRemark == null) {
+			if (other.commentRemark != null)
 				return false;
-		} else if (!commetn.equals(other.commetn))
+		} else if (!commentRemark.equals(other.commentRemark))
 			return false;
 		if (dateTimeComment == null) {
 			if (other.dateTimeComment != null)
 				return false;
 		} else if (!dateTimeComment.equals(other.dateTimeComment))
 			return false;
-		if (emp == null) {
-			if (other.emp != null)
+		if (employee == null) {
+			if (other.employee != null)
 				return false;
-		} else if (!emp.equals(other.emp))
+		} else if (!employee.equals(other.employee))
 			return false;
 		if (id != other.id)
 			return false;
@@ -133,8 +134,8 @@ public class Comment  implements Comparable<Comment>
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", commetn=" + commetn + ", dateTimeComment=" + dateTimeComment + ", task=" + task
-				+ ", emp=" + emp + "]";
+		return "Comment [id=" + id + ", commetn=" + commentRemark + ", dateTimeComment=" + dateTimeComment + ", task=" + task
+				+ ", emp=" + employee + "]";
 	}
 
 	@Override
