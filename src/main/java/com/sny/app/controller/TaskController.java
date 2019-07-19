@@ -47,7 +47,7 @@ public class TaskController {
 	{    log.warn(" task of perticular user =\t  "+ts.getTaskByUserId(id));
 		// get task of perticular  employee  some times it may be  more then one  
 	    return ResponseEntity.ok(ts.getTaskByUserId(id));
-	}
+	}   // get all Task of the user   
 	
 	@GetMapping("/task/{id}")
 	public ResponseEntity<TaskUserDto> getTask(@PathVariable("id") int id )
@@ -55,7 +55,7 @@ public class TaskController {
 	
 	     return ResponseEntity.ok(ts.getTaskById(id));
 		// it will return the  task  based on   id  given by  end user 
-	}
+	}   
 	
 	@GetMapping("/user/task/")
 	public ResponseEntity<List<Task>> getAllTasks()

@@ -1,5 +1,8 @@
 package com.sny.app.controller;
 
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,12 +53,13 @@ public class CommentController {
   }   //  add a comment on the perticular task 
   
    
-  
-  @GetMapping("/user/comment/{commentId}")
-  public ResponseEntity<Comment> getComment(@PathVariable("commentId") int id)
+  @GetMapping("/user/comment/{taskId}")
+  public ResponseEntity<List<Comment>> getComment(@PathVariable("taskId") int taskid)
   {
-	 return  ResponseEntity.ok(cs.getComment(id));  
+	 return  ResponseEntity.ok(cs.getComentbyTaskId(taskid));  
   }
+  
+  
   
   
   

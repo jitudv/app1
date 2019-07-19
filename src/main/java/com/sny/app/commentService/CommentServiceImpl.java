@@ -1,6 +1,7 @@
 package com.sny.app.commentService;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -60,6 +61,12 @@ public class CommentServiceImpl implements CommentService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Comment> getComentbyTaskId(int taskid) {
+		// TODO Auto-generated method stub
+		return cd.findByTaskId(taskid);
+ 	}
 	
 	
 }

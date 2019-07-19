@@ -15,12 +15,12 @@ import com.sny.app.user.Employee;
 @SpringBootTest
 public class AppApplicationTests {
     
-	@Autowired
-	EmployeeService emps;
-	
-	@Autowired 
-	TaskService ts ;
+//	@Autowired
+//	EmployeeService emps;
 //	
+//	@Autowired 
+//	TaskService ts ;
+////	
 //	@Test
 //	public void contextLoads() 
 //	{

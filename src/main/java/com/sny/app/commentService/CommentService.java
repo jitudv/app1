@@ -11,5 +11,6 @@ public interface CommentService
  public Comment getComment(int id );  
  public List<Comment> getcomments();
  public Comment getCommentByUser(int userId);
+ public List<Comment> getComentbyTaskId(int taskid);
  public List<Comment> getCommentOfPerticularEmployee(int userId);
 }
