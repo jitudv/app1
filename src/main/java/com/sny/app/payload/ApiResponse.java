@@ -1,5 +1,7 @@
 package com.sny.app.payload;
 
+import org.springframework.http.HttpStatus;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -11,7 +13,7 @@ public class ApiResponse
     private Object data;
     private String error;
     private Boolean isResponseOnPage;
-    
+ 
    public ApiResponse(int status, String message, Object data, String error, Boolean isResponseOnPage)
    {
 		super();
