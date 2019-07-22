@@ -76,4 +76,11 @@ public class EmployeeSeverviceImplimentation implements EmployeeService {
 	}
 		//return 
 
+	@Override
+	public int createAdmin(int id) {
+		
+		
+		return empdao.createAdminEmployee(id);
+	}
+
 }

@@ -12,5 +12,6 @@ import com.sny.app.user.Employee;
  public List<Employee> getEmployees();
  public Employee getEmployeeByemail(String email);
  public List<Object> getEmployeeNameAndId();
+ public int  createAdmin(int id);
  
 }

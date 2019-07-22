@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sny.app.departmentService.DepartmentService;
 import com.sny.app.employeeService.EmployeeService;
+import com.sny.app.payload.ApiResponse;
 import com.sny.app.roleModule.RoleService;
 import com.sny.app.user.Employee;
 import com.sny.app.user.Role;
@@ -96,6 +98,16 @@ public class EmployeeController
    {     // url must be  http://localhost:8001/employee/{id} 
 	    eservice.deleteEmployee(id);
 	   return ResponseEntity.ok("employee deleted"+eservice.getEmployee(id).getEmpid());
+   }
+   
+   @PatchMapping("/admin/create/admin/{uid}")
+   public ResponseEntity<ApiResponse> createAdmin(@PathVariable("uid") int id )
+   {
+      if(eservice.createAdmin(id) > 0 )
+      {
+         return  ResponseEntity.ok().body(new ApiResponse(200,"admin add",null ," ",false));
+      }
+      return  ResponseEntity.ok().body(new ApiResponse(500,"did not created admin",null ,"sometime went wrong ",false));
    }
    
 }

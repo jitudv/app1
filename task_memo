@@ -12,3 +12,5 @@ mys sql user  :- user1      and password is       user@321
       
       
       select t.task_id, t.asign_date, t.at_complete, t.remark, employee_task.employee_id  from task_table as t  join employee_task on t.task_id=employee_task.task_id where employee_task.employee_id=6
+      
+      update  employee_master_roles  set roles_id=role_id   where employee_employee_id=employee_id ; // to create a adin query 
