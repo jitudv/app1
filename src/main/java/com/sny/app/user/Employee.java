@@ -52,7 +52,7 @@ public class Employee  implements Comparable<Employee>
     @Fetch(value=FetchMode.SUBSELECT)
     List<Role> roles;   
     
-    @OneToOne (cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
+    @OneToOne (cascade = CascadeType.PERSIST ,fetch = FetchType.EAGER)
     @JoinColumn(name="department_id")
 	Department department;   // its a  class one to one   association     
 	

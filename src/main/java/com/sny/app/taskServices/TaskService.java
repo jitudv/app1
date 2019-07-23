@@ -13,6 +13,8 @@ public interface TaskService {
  public void removeTask(int id);   // remove Task  from tasks  based on id 
  public List<TaskUserDto> getTaskByUserId(int id); // get Tasks of perticular user 
  public void changeTaskCompleted(int id);
- public Task  getOne(int id);
+ public List<Task> getRunningTask(int id);
+ public Task getOne(int id);
+ 
 }
 

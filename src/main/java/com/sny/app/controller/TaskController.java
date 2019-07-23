@@ -42,20 +42,23 @@ public class TaskController {
 	@Autowired
 	EmployeeService es ;
 	
-	@GetMapping(value="/user/task/{userid}"  , produces = MediaType.APPLICATION_JSON_VALUE )
-	public ResponseEntity<List<TaskUserDto>> getTaksByUserId(@PathVariable("userid") int id)
-	{    log.warn(" task of perticular user =\t  "+ts.getTaskByUserId(id));
-		// get task of perticular  employee  some times it may be  more then one  
-	    return ResponseEntity.ok(ts.getTaskByUserId(id));
-	}   // get all Task of the user   
 	
-	@GetMapping("/task/{id}")
+	
+	
+	
+	@GetMapping("/user/task/{id}")
 	public ResponseEntity<TaskUserDto> getTask(@PathVariable("id") int id )
-	{   
-	
-	     return ResponseEntity.ok(ts.getTaskById(id));
-		// it will return the  task  based on   id  given by  end user 
+	{  
+		return ResponseEntity.ok(ts.getTaskById(id));
+		// it will return the  task  based on   id  given by  end only admin return both complited and running task  
 	}   
+	
+	@GetMapping("task/{id}")
+	public ResponseEntity<List<Task>>  getTaskRunning(@PathVariable("id") int id )
+	{   
+	    return ResponseEntity.ok(ts.getRunningTask(id));
+        // return  the running tasks for the user 
+	} 
 	
 	@GetMapping("/user/task/")
 	public ResponseEntity<List<Task>> getAllTasks()
@@ -85,16 +88,26 @@ public class TaskController {
 		return  ResponseEntity.ok("your Task is added ");
 	}
 	
-	@PutMapping("/admin/task/{id}")
-	public ResponseEntity<String> updateTask(@RequestBody Task task, @PathVariable int id )
-	{ 
-		Task t  =  ts.getOne(id);                    // task is return  Object mapping 
-		t.setAsignDate(task.getAsignDate());
-		t.setAtComplete(task.getAtComplete());
-		t.setEmps(task.getEmps());
-		t.setRemark(task.getRemark());
-		ts.addTask(t);
-        return  ResponseEntity.ok("your task update "+t.getId());
+	@PutMapping("/admin/task/{id}/{userid}")
+	public ResponseEntity<String> updateTask(@RequestBody Task task, @PathVariable int id , @PathVariable("userid") int  uids[])
+	{   
+	   Set<Employee> eList =  new HashSet<Employee>();
+		for(int uid:uids)
+	   {
+        eList.add(es.getEmployee(uid));	
+	   }
+		if(eList.size() > 0)
+		{
+			Task t  =  ts.getOne(id);                    // task is return  Object mapping 
+			t.setAsignDate(task.getAsignDate());
+			t.setAtComplete(task.getAtComplete());
+			t.setEmps(eList);
+			t.setRemark(task.getRemark());
+			ts.addTask(t);
+	        return  ResponseEntity.ok("your task update "+t.getId());
+		}
+		return ResponseEntity.ok().body("task not update  ");
+		
 	}
 	
 	@DeleteMapping("/admin/task/{id}")
@@ -119,15 +132,17 @@ public class TaskController {
 		return ResponseEntity.ok(list);
 		}
 	
-	@PutMapping("/user/task/updatestatus/{taskid}")
+	@PutMapping("/user/task/updatestatus/{taskid}/")
 	public  ResponseEntity<ApiResponse> taskStatusChangedToComplete(@PathVariable("taskid") int taskid)
-	{
-	   ts.changeTaskCompleted(taskid);
-	   log.warn("yes task status is changed ");
-       ApiResponse res = new ApiResponse();
-       res.setMessage("completed");
-       res.setStatus(200);
-       return  ResponseEntity.ok(res);
-	}
+	{     log.warn(" task id for the task statas update   \t \t \t "+taskid);
+		  //  service for  mark  task complited   by user   
+		   ts.changeTaskCompleted(taskid);
+		   log.warn("yes task status is changed ");
+	       ApiResponse res = new ApiResponse();
+	       res.setMessage("completed");
+	       res.setStatus(200);
+	       return  ResponseEntity.ok(res);
+	
+	 }
 	
 }

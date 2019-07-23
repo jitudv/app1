@@ -81,7 +81,7 @@ public class TaskServiceImpl implements TaskService {
 		    dto.setCompleted(status);
 		    
 		   
-		});
+		   });
 		
 		  return dto; //  getTaskById() taskDao method  
 	}
@@ -116,6 +116,13 @@ public class TaskServiceImpl implements TaskService {
 		// TODO Auto-generated method stub
 		return tdao.getOne(id);
 	}
+
+	@Override
+	public List<Task>  getRunningTask(int id) {
+		 return  tdao.getRunningTask(id);  // return  all the task   for the user 
+				 
+		 	               }
+	
 
 
 	
