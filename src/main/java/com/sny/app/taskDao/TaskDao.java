@@ -26,7 +26,7 @@ public interface TaskDao extends JpaRepository<Task, Integer>
     public  List<Object[]>  getTaskById(int id);
     
     @Query(value="update task_table  set completed =1 where task_id=?1",nativeQuery = true)
-    @Modifying
+    @Modifying(clearAutomatically = true)
     public void changeTaskCompleted(int id );
    
     
@@ -34,6 +34,5 @@ public interface TaskDao extends JpaRepository<Task, Integer>
    		+ " left join  employee_task on employee_task.task_id=t.task_id "
    		+ "where  employee_task.employee_id = ?1  and  t.completed < 1 ;" , nativeQuery = true ) 
    public List<Task> getRunningTask(int id);
-    
- 	
-}
+   
+    }

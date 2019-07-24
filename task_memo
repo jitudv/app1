@@ -18,3 +18,4 @@ mys sql user  :- user1      and password is       user@321
       
       select t.task_id, t.asign_date, t.at_complete, t.remark, employee_task.employee_id  from task_table as t  join employee_task on t.task_id=employee_task.task_id where employee_task.employee_id=3 and  t.completed < 1
       
+      https://www.callicoder.com/spring-boot-spring-security-jwt-mysql-react-app-part-1/

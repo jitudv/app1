@@ -41,7 +41,7 @@ public class MyCORSFilter  extends  OncePerRequestFilter{
 	        
 		 
 		    response.setHeader("Access-Control-Allow-Origin", "*");
-	        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+	        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE,PATCH,HEAD,OPTIONS");
 	        response.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token, Cache-Control");
 	        response.addHeader("Access-Control-Expose-Headers", "xsrf-token");
 	        
